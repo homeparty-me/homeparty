@@ -8,11 +8,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Login from './screens/Login'
 import Settings from './screens/Settings'
 import Home from './screens/Home'
+import SignUp from './screens/SignUp';
 
 // Screen names
 const loginName = 'Login';
 const settingsName = 'Settings';
 const homeName = 'Home';
+const signUpName = 'Signup'
 
 // Tab navigator
 const Tab = createBottomTabNavigator();
@@ -34,6 +36,8 @@ export default function MainContainer(){
                         iconName = focused ? 'settings' : 'settings-outline';
                     } else if(rn === loginName){
                         iconName = focused ? 'log-in' : 'log-in-outline';
+                    } else if(rn === signUpName){
+                        iconName = focused ? 'person-add' : 'person-add-outline';
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />
@@ -46,8 +50,11 @@ export default function MainContainer(){
             >
 
             <Tab.Screen name={homeName} component={Home} />
+            <Tab.Screen name={signUpName} component={SignUp} />
             <Tab.Screen name={loginName} component={Login} />
             <Tab.Screen name={settingsName} component={Settings} />
+
+
 
             </Tab.Navigator>
         </NavigationContainer>

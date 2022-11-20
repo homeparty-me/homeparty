@@ -1,4 +1,11 @@
 import clientPromise from "./mongodb";
+import jwt from "jsonwebtoken";
+
+const createToken = (user) => {
+    return jwt.sign({ user }, process.env.JWT_SECRET, {
+        expiresIn: "10d",
+    });
+};
 
 async function handler(req, res) {
     const { email, password } = req.body;
@@ -13,10 +20,14 @@ async function handler(req, res) {
     if (!user) {
         res.status(400).json({ message: "Invalid Credentials" });
         client.close();
-        return;
     } else {
-        res.status(200).json({ message: "Logged in successfully", user: user });
+        const token = createToken(user);
+        await db.collection("users").updateOne(
+            { _id: user._id },
+            { $set: { token: token } }
+        );
+        res.setHeader("Set-Cookie", `token=${token}; path=/; httpOnly`);
+        res.status(200).json({ message: "Logged in successfully", user: user, token: token });
         client.close();
-        return;
     }
 }
