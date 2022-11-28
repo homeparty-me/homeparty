@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, TextInput, Button } from "react-native";
+import { styles } from "../../../styles/SignUp";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -7,20 +8,20 @@ export default function SignUp() {
   const [username, setUsername] = useState("");
 
   return (
-    <View>
-      <TextInput
+    <View style={styles.container}>
+      <TextInput style={styles.input}
         placeholder="Username"
         onChangeText={(newUsername) => setUsername(newUsername)}
       />
-      <TextInput
+      <TextInput style={styles.input}
         placeholder="Email"
         onChangeText={(newEmail) => setEmail(newEmail)}
       />
-      <TextInput
+      <TextInput style={styles.input}
         placeholder="Password"
         onChangeText={(newPassword) => setPassword(newPassword)}
       />
-      <Button
+      <Button style={styles.button} 
         title="Sign Up"
         onPress={() => {
           // Get email, username and password from the user
